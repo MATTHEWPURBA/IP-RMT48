@@ -80,6 +80,28 @@ class CuisineController {
       next(error);
     }
   }
+
+  static async getCuisineById(req, res, next) {
+    try {
+      const cuisineData = await Cuisine.findByPk(req.params.id);
+
+      if (!cuisineData)
+      
+        throw {
+
+          name: "NotFound",
+
+        };
+
+      
+      res.status(200).json(cuisineData);
+
+
+
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 module.exports = CuisineController;

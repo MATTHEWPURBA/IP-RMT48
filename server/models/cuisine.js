@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
       Cuisine.belongsTo(models.Category, { foreignKey: "CategoryId" });
       Cuisine.belongsTo(models.User, { foreignKey: "UserId" });
       Cuisine.belongsToMany(models.User, {
-        through: models.Cart,
+        through: models.Favorite,
         foreignKey: "UserId",
         otherKey: "CuisineId",
       });
