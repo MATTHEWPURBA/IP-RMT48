@@ -5,6 +5,11 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       Cuisine.belongsTo(models.Category, { foreignKey: "CategoryId" });
       Cuisine.belongsTo(models.User, { foreignKey: "UserId" });
+      Cuisine.belongsToMany(models.User, {
+        through: models.Cart,
+        foreignKey: "UserId",
+        otherKey: "CuisineId",
+      });
     }
   }
   Cuisine.init(
