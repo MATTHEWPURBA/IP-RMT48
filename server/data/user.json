@@ -1,0 +1,26 @@
+[
+  {
+    "username": "mdrewe0",
+    "email": "bcorradeschi0@si.edu",
+    "password": "Mat182",
+    "role": "Staff",
+    "phoneNumber": "8091065740",
+    "address": "65 Myrtle Point"
+  },
+  {
+    "username": "brossborough1",
+    "email": "avolet1@behance.net",
+    "password": "Zamit",
+    "role": "Staff",
+    "phoneNumber": "8433778021",
+    "address": "984 Coleman Plaza"
+  },
+  {
+    "username": "cjanouch2",
+    "email": "bagent2@eventbrite.com",
+    "password": "Fixan",
+    "role": "Staff",
+    "phoneNumber": "5867759039",
+    "address": "5596 Gulseth Way"
+  }
+]
