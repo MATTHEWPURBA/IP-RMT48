@@ -4,22 +4,65 @@ const {
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
     static associate(models) {
-      // define association here
+      User.hasMany(models.Cuisine,{
+        foreignKey:"UserId"
+      })
     }
   }
   User.init({
-    username: DataTypes.STRING,
-    email: DataTypes.STRING,
-    password: DataTypes.STRING,
-    role: DataTypes.STRING,
-    phoneNumber: DataTypes.STRING,
-    address: DataTypes.STRING
+    username: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          args: true,
+          msg: "Username is required",
+        },
+        notEmpty: {
+          args: true,
+          msg: "Username is required",
+        },
+      },
+    },
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: {
+        args: true,
+        msg: "Email Already Exist",
+      },
+      validate: {
+        notNull: {
+          args: true,
+          msg: "Email is required",
+        },
+        notEmpty: {
+          args: true,
+          msg: "Email is required",
+        },
+        isEmail: {
+          args: true,
+          msg: "Invalid Email format",
+        },
+      },
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: "Password is required",
+        notEmpty: "Password is rquired",
+        min(value) {
+          if (value < 5) {
+            throw new Error("minimum character for Password is 5 char");
+          }
+        },
+      },
+    },
+    role: {
+      type: DataTypes.STRING,
+    },
   }, {
     sequelize,
     modelName: 'User',
