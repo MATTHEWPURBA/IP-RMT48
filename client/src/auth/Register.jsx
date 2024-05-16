@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { localRequest } from "../../../public-client/utils/axios";
+
 import showToast from "../../utils/toastify";
-//
+import { localRequest } from "../../utils/axios";
+
+
 export default function Register() {
   const [inputData, setInputData] = useState({
     email: "",

@@ -2,6 +2,7 @@ import "./App.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Login from "./auth/Login";
 import Register from "./auth/Register";
+import Homepage from "./pages/Homepage";
 
 const router = createBrowserRouter([
   {
