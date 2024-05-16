@@ -1,5 +1,5 @@
 class FavoriteController {
-  static async createGift(req, res, next) {
+  static async addtoFavorite(req, res, next) {
     try {
       const { voucherId } = req.params;
       const { message, amount, receiverId } = req.body;
@@ -22,3 +22,5 @@ class FavoriteController {
     }
   }
 }
+
+module.exports = FavoriteController;

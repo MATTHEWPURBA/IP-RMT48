@@ -11,20 +11,12 @@ const upload = multer({
 const restaurantController = require("../../controllers/RestaurantController");
 
 const authentication = require("../../middleware/authentication");
+const FavoriteController = require("../../controllers/FavoriteController");
 
 const router = express.Router();
 
 router.use(authentication);
 
+router.post("/add-favorite/:id", FavoriteController.addtoFavorite);
 
-router.post("/add-favorite", restaurantController.postCuisine);
-
-router.put("/:id", authorization, restaurantController.updateCuisine);
-
-router.delete("/:id", authorization, restaurantController.deleteCuisine);
-
-router.patch("/:id/name", authorization, restaurantController.patchCuisineById);
-
-router.patch("/:id/imageUrl", authorization, upload.single("image"), restaurantController.patchImage);
-// router.patch("/:id/imgUrl", authorization, upload.single("avatar"), restaurantController.patchImgCuisineById);
 module.exports = router;

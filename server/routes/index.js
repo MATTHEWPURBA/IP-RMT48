@@ -8,4 +8,5 @@ router.get("/", CuisineController.homePage);
 router.use("/user", userRoute);
 router.use("/pub", publicRoute);
 
+
 module.exports = router;
