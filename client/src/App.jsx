@@ -1,14 +1,12 @@
 import "./App.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Login from "./auth/Login";
+import Register from "./auth/Register";
 
 const router = createBrowserRouter([
   {
     path: "/register",
     element: <Register />,
-    loader: () => {
-      return localStorage.getItem("token") ? redirect("/articles") : null;
-    },
   },
   {
     path: "/login",
@@ -23,7 +21,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Home />,
+        element: <Homepage />,
       },
 
       {
@@ -34,14 +32,6 @@ const router = createBrowserRouter([
           return localStorage.getItem("token") ? null : redirect("/login");
         },
         /** fungsi loader adalah untuk memberikan fatau redirectt orang kalo misalnya dia belom login */
-      },
-
-      {
-        path: "/create-staff",
-        element: <Create_user />,
-        loader: () => {
-          return localStorage.getItem("token") && localStorage.getItem("role") === "Admin" ? null : redirect("/login");
-        },
       },
 
       {
