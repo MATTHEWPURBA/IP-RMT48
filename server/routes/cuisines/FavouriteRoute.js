@@ -10,19 +10,14 @@ const upload = multer({
 
 const restaurantController = require("../../controllers/RestaurantController");
 
-const authentication = require("../../middleware/authenticate");
-
-const authorization = require("../../middleware/authorization");
+const authentication = require("../../middleware/authentication");
 
 const router = express.Router();
 
 router.use(authentication);
 
-router.get("/", restaurantController.getAllCuisineUser);
 
-router.get("/:id", restaurantController.getCuisineById);
-
-router.post("/add-cuisine", restaurantController.postCuisine);
+router.post("/add-favorite", restaurantController.postCuisine);
 
 router.put("/:id", authorization, restaurantController.updateCuisine);
 

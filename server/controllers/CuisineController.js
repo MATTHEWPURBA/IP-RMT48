@@ -86,7 +86,7 @@ class CuisineController {
       const cuisineData = await Cuisine.findByPk(req.params.id);
 
       if (!cuisineData)
-      
+
         throw {
 
           name: "NotFound",
@@ -102,6 +102,11 @@ class CuisineController {
       next(error);
     }
   }
+
+
+
+
+  
 }
 
 module.exports = CuisineController;
