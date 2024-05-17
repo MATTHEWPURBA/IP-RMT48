@@ -20,9 +20,11 @@ beforeAll(async () => {
 
 describe("POST users/login", () => {
   test("Login Success!", async () => {
-    const response = await request(app).post("/users/login").send({ email: dataToInsert.email, password: dataToInsert.password });
+    const response = await request(app).post("/user/login").send({ email: dataToInsert.email, password: dataToInsert.password });
 
     const { body, status } = response;
+
+    console.log(body, " ini ada alh body");
     access_token = body.access_token;
     expect(status).toBe(200);
     expect(body).toBeInstanceOf(Object);
@@ -30,7 +32,7 @@ describe("POST users/login", () => {
   });
 
   test("Login Failed, Email Must Not Empty!", async () => {
-    const response = await request(app).post("/users/login").send({ email: "", password: dataToInsert.password });
+    const response = await request(app).post("/user/login").send({ email: "", password: dataToInsert.password });
     const { body, status } = response;
     expect(status).toBe(400);
     expect(body).toBeInstanceOf(Object);
@@ -38,7 +40,7 @@ describe("POST users/login", () => {
   });
 
   test("Login Failed, Password Must Not Empty!", async () => {
-    const response = await request(app).post("/users/login").send({ email: dataToInsert.email, password: "" });
+    const response = await request(app).post("/user/login").send({ email: dataToInsert.email, password: "" });
     const { body, status } = response;
     expect(status).toBe(400);
     expect(body).toBeInstanceOf(Object);
@@ -46,15 +48,15 @@ describe("POST users/login", () => {
   });
 
   test("Login Failed, Email is Invalid!", async () => {
-    const response = await request(app).post("/users/login").send({ email: !dataToInsert.email, password: dataToInsert.password });
+    const response = await request(app).post("/user/login").send({ email: !dataToInsert.email, password: dataToInsert.password });
     const { body, status } = response;
     expect(status).toBe(400);
     expect(body).toBeInstanceOf(Object);
     expect(body).toHaveProperty("message", "Email/Password is required");
   });
-  
+
   test("Login Failed, Password is Invalid!", async () => {
-    const response = await request(app).post("/users/login").send({ email: !dataToInsert.email, password: dataToInsert.password });
+    const response = await request(app).post("/user/login").send({ email: !dataToInsert.email, password: dataToInsert.password });
     const { body, status } = response;
     expect(status).toBe(400);
     expect(body).toBeInstanceOf(Object);
