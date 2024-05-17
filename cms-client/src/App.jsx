@@ -26,20 +26,6 @@ const router = createBrowserRouter([
         path: "/",
         element: <Homepage />,
       },
-      
-
-      // {
-      //   path: "/:id",
-      //   element: <CuisineDetail />,
-      // },
-
-      // {
-      //   path: "/add-menu",
-      //   element: <CreateMenu />,
-      //   loader: () => {
-      //     return localStorage.getItem("token") ? null : redirect("/login");
-      //   },
-      // },
     ],
   },
 ]);
