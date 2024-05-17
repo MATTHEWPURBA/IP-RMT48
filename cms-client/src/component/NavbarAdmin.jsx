@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-export default function Navbar({}) {
+export default function NavbarAdmin({}) {
   const handleLogOut = () => {
     localStorage.removeItem("token");
   };
@@ -35,6 +35,11 @@ export default function Navbar({}) {
                 <li>
                   <Link to={"/form-page"} className="text-lg font-normal capitalize text-slate-800">
                     Add Cuisine
+                  </Link>
+                </li>
+                <li>
+                  <Link to={"/create-user"} className="text-lg font-normal capitalize text-slate-800">
+                    Add User
                   </Link>
                 </li>
                 {/* kalau mau tambah menu di navbar tambahin disini */}

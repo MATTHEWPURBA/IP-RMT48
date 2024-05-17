@@ -1,9 +1,71 @@
-import Content from "../component/Content";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import Cards from "../component/Cards";
 
 export default function Homepage() {
+  const [dataCuisine, setDataCuisine] = useState([]);
+  // console.log("🚀 ~ Home ~ DataCuisine:", DataCuisine);
+  const [dataCategory, setDataCategory] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [Category, setCategory] = useState(0);
+  const [sort, setSort] = useState("");
+  const [totalPages, setTotalPages] = useState(1);
+  const [search, setSearch] = useState("");
+  const [page, setPage] = useState(1);
+
+  const fetchCuisine = async () => {
+    try {
+      const response = await axios({
+        method: "GET",
+        url: "http://localhost:3000/pub/cuisine/",
+        params: {
+          search,
+          sort,
+          Category,
+          page,
+        },
+      });
+
+      setDataCuisine(response.data.data);
+
+      // setTotalPages(Math.ceil(response.data.response.count / 9));
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  console.log(dataCuisine, "apa nih");
+
+  // const fetchCategories = async () => {
+  //   try {
+  //     const categories = await api.get("/pub/categories");
+  //     const dataCategories = categories.data.categories;
+  //     setDataCategory(dataCategories);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   fetchCategories();
+  // }, []);
+
+  const submitSearch = () => {
+    if (page !== 1) {
+      setPage(1);
+    } else {
+      fetchCuisine();
+    }
+  };
+
+  useEffect(() => {
+    fetchCuisine();
+  }, [page, Category, sort]);
+
   return (
     <>
-
       {/* hero */}
       <div className="my-24 w-full">
         <div className="container mx-auto ">
@@ -100,7 +162,6 @@ export default function Homepage() {
               </button>
             </form>
             {/* ini untuk search and filter */}
-            
 
             {/* ini buat category sorting */}
             <div className="container px-10 mx-0 min-w-full flex flex-col items-center">
@@ -144,11 +205,25 @@ export default function Homepage() {
           </div>
         </div>
       </div>
-      
+
       {/* hero end */}
 
-      <Content />
-      
+      {/* Content */}
+      <div className="py-12 bg-slate-100 mx-auto">
+        <div className="container mx-auto">
+          <div className="mb=8">
+            <h3 className="font-semibold text-2xl text-slate-800 text-center capitalize mb-1">Popular Cuisine</h3>
+            <p className="text-slate-500 text-center">Explore our menu</p>
+          </div>
+
+          <div className="grid grid-cols-12 gap-4 py-8">
+            {dataCuisine.map((dataCuisine) => {
+              return <Cards dataCuisine={dataCuisine} key={dataCuisine.id} />;
+            })}
+          </div>
+        </div>
+      </div>
+      {/* Content end*/}
     </>
   );
 }

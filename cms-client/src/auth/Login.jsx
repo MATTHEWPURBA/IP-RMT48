@@ -1,8 +1,9 @@
 import axios from "axios";
 import { useState } from "react";
+import Toastify from "toastify-js";
 import { useNavigate } from "react-router-dom";
-import showToast from "../../utils/toastify";
 import { localRequest } from "../../utils/axios";
+import showToast from "../../utils/toastify";
 
 export default function Login({}) {
   const [email, setEmail] = useState("");
@@ -13,6 +14,8 @@ export default function Login({}) {
   const submitLogin = async (event) => {
     event.preventDefault();
     try {
+      console.log("lempar prop");
+
       let { data } = await localRequest({
         method: "post",
         url: "/users/login",
@@ -21,11 +24,17 @@ export default function Login({}) {
           password: password,
         },
       });
+      console.log(data, "<<<< ini dataa nihhhh");
+
       localStorage.setItem("token", data.access_token);
       localStorage.setItem("role", data.role);
+      console.log(localStorage, "ini dari localstorage");
+      console.log(data.access_token, "ini akses token dari login");
       navigate("/");
+      // changePage("add");
     } catch (error) {
       let { message } = error.response.data;
+      // console.log(message, "<<<<<ini udah di object");
       console.log(error);
       showToast(message);
     }
