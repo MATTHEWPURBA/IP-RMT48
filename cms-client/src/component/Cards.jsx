@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 
+const token = localStorage.getItem("token");
+
 export default function Cards({ dataCuisine }) {
   return (
     <>
@@ -14,19 +16,44 @@ export default function Cards({ dataCuisine }) {
         <div className="px-4 pb-6">
           <div className="mb-7">
             <h1 className="font-bold text-slate-800 mb-2">{dataCuisine.title}</h1>
+            <h1 className="font-regular text-slate-800 mb-2">{dataCuisine.restaurantChain}</h1>
           </div>
-          <div className="flex flex-wrap gap-2">
-            <div className="card-actions"></div>
 
-            <Link
-              type="button"
-              to={`cuisine/${dataCuisine.id}`}
-              className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 
+          {token ? (
+            <div className="flex flex-wrap gap-2">
+              <div className="card-actions"></div>
+
+              <Link
+                type="button"
+                to={`pub/cuisine/${dataCuisine.id}`}
+                className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 
               focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
-            >
-              See Details
-            </Link>
-          </div>
+              >
+                See Details
+              </Link>
+              <Link
+                type="button"
+                to={`pub/cuisine/${dataCuisine.id}`}
+                className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 
+              focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
+              >
+                Add to Favorite
+              </Link>
+            </div>
+          ) : (
+            <div className="flex flex-wrap gap-2">
+              <div className="card-actions"></div>
+
+              <Link
+                type="button"
+                to={`pub/cuisine/${dataCuisine.id}`}
+                className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 
+              focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
+              >
+                See Details
+              </Link>
+            </div>
+          )}
         </div>
       </div>
       {/* // card end */}

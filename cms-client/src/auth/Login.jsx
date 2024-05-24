@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Toastify from "toastify-js";
 import { useNavigate } from "react-router-dom";
 import { localRequest } from "../../utils/axios";
@@ -10,6 +10,39 @@ export default function Login({}) {
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
+
+  async function handleCredentialResponse(response) {
+    try {
+      // console.log("Encoded JWT ID token: " + response.credential);
+      const { data } = await axios({
+        method: "post",
+        url: "http://localhost:3000/user/google-login",
+        headers: {
+          google_token: response.credential,
+        },
+      });
+
+      console.log(data.access_token, "ini akses");
+      localStorage.setItem("token", data.access_token);
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    window.onload = function () {
+      google.accounts.id.initialize({
+        client_id: import.meta.env.VITE_GOOGLE,
+        callback: handleCredentialResponse,
+      });
+      google.accounts.id.renderButton(
+        document.getElementById("buttonDiv"),
+        { theme: "outline", size: "large" } // customization attributes
+      );
+      google.accounts.id.prompt(); // also display the One Tap dialog
+    };
+  }, []);
 
   const submitLogin = async (event) => {
     event.preventDefault();
@@ -24,7 +57,6 @@ export default function Login({}) {
           password: password,
         },
       });
-      console.log(data, "<<<< ini dataa nihhhh");
 
       localStorage.setItem("token", data.access_token);
       localStorage.setItem("role", data.role);
@@ -73,6 +105,7 @@ export default function Login({}) {
             <button className="bg-blue-400 p-2 justify-center items-center w-96 hover:ring-blue-400 hover:bg-blue-500 rounded-lg flex mx-auto" type="submit">
               Log In
             </button>
+            <div className="w-96 mx-auto" id="buttonDiv"></div>
           </form>
         </section>
       </main>
